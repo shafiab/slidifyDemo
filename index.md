@@ -1,0 +1,87 @@
+---
+title       : My ShinyApps on EPA National Ambient Air Quality Data
+subtitle    : 
+author      : Shafi
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+github:
+  user:shafiab
+  repo:slidifyDemo
+
+
+--- .class #id 
+
+## Description
+
+- The shinyapps will present the EPA National Ambient Air Quality Data for the year 2013.
+- The app shows the level of two pollutants for a given location
+- The pollutants are:
+  1. Ozone (ppm)
+  2. PM2.5 (ug/m3)
+-The app shows the levels of these two pollutants for a given area.
+
+- The original code to get the pollutant data was taken from the lecture video on *yhat*.
+- However, the original code require latitude, longitude and radius as input.
+
+
+```r
+  pollutant(data.frame(lon=-76,lat=39,radius=40))
+```
+
+---
+
+## R Code
+- In my app, I added a wrapper function to get the latitute and longitude value using a lookup table.
+
+```r
+  ZIP<-read.csv("zipcode.csv")
+  zipcode<-95054
+  latitude<-ZIP$latitude[ZIP$zip==zipcode]
+  longitude<-ZIP$longitude[ZIP$zip==zipcode]
+  print(latitude)
+```
+
+```
+## [1] 37.39
+```
+
+```r
+  print(longitude)
+```
+
+```
+## [1] -122
+```
+
+---
+
+## Input 
+
+- The app takes two input
+
+    1. Zipcode
+    2. Radius  
+
+- The user will input the zipcode in the text box.
+- The default zipcode is set to *95054*
+- User can enter any zip code within the US
+- The calculated latitude and longitude values based on the entered zipcode are used as input to the pollutant function
+
+- The user can select any radius from the slider
+- The default radius is set to 40 miles
+
+---
+
+## Output
+- Based on the user input, the app will show the city name, state
+- The app will also show the pollutant levels for that city in a table
+- The app also determine the city name and state using the lookup table and used in the app
+
+- The app also contains a help document
+- If user click the *Help Guide*, the app will take the user to a new page
+- The new page contains a help guide for the users to use the app
+
